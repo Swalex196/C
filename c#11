@@ -1,0 +1,56 @@
+using System;
+
+class Meal
+{
+    public string Name { get; set; }
+    public string Cuisine { get; set; }
+
+    public Meal(string name, string cuisine)
+    {
+        Name = name;
+        Cuisine = cuisine;
+    }
+}
+
+class Person
+{
+    public string Name { get; set; }
+    public string Relation { get; set; }
+
+    public Person(string name, string relation)
+    {
+        Name = name;
+        Relation = relation;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Meals
+        var meal1 = new Meal("Sushi", "Japanese");
+        var meal2 = new Meal("Pizza", "Italian");
+        var meal3 = new Meal("Grilled Steak", "American");
+        var meal4 = new Meal("Falafel", "Middle Eastern");
+
+        // People
+        var girlfriend = new Person("Ayşe", "Girlfriend");
+        var wife = new Person("Fatma", "Wife");
+        var coworker = new Person("Ahmet", "Coworker");
+
+        // Meal Suggestion
+        Console.Write("Who are you eating with? (Girlfriend/Wife/Coworker): ");
+        string relation = Console.ReadLine()?.ToLower();
+
+        string suggestion = relation switch
+        {
+            "girlfriend" => $"Meal suggestion for Girlfriend ({girlfriend.Name}): {meal1.Name}, Cuisine: {meal1.Cuisine}",
+            "wife" => $"Meal suggestion for Wife ({wife.Name}): {meal2.Name}, Cuisine: {meal2.Cuisine}",
+            "coworker" => $"Meal suggestion for Coworker ({coworker.Name}): {meal3.Name}, Cuisine: {meal3.Cuisine}",
+            _ => "No suggestion available for the specified relation."
+        };
+
+        Console.WriteLine(suggestion);
+    }
+}
