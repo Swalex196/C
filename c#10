@@ -1,0 +1,232 @@
+1. Getter ve Setter Kullanımı
+
+using System;
+
+class Insan
+{
+    private string _isim;
+
+    public string Isim
+    {
+        get { return _isim; }
+        set
+        {
+            if (!string.IsNullOrEmpty(value))
+                _isim = value;
+            else
+                throw new ArgumentException("İsim boş olamaz.");
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Insan insan = new Insan();
+        insan.Isim = "Ahmet"; // Geçerli değer atanıyor
+        Console.WriteLine($"İsim: {insan.Isim}");
+
+        try
+        {
+            insan.Isim = ""; // Hata fırlatacak
+        }
+        catch (ArgumentException e)
+        {
+            Console.WriteLine($"Hata: {e.Message}");
+        }
+    }
+}
+
+2. Yalnızca Okunabilir Özellikler
+
+using System;
+
+class SabitDeger
+{
+    private const double _pi = 3.14159;
+
+    public double Pi
+    {
+        get { return _pi; } // Sadece okunabilir
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        SabitDeger sabit = new SabitDeger();
+        Console.WriteLine($"Pi: {sabit.Pi}");
+    }
+}
+
+3. Hesaplanan Özellikler
+
+using System;
+
+class Dikdortgen
+{
+    public int En { get; set; }
+    public int Boy { get; set; }
+
+    public int Alan
+    {
+        get { return En * Boy; } // Hesaplanan özellik
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Dikdortgen dikdortgen = new Dikdortgen { En = 5, Boy = 10 };
+        Console.WriteLine($"Dikdörtgen Alanı: {dikdortgen.Alan}");
+    }
+}
+
+4. Özelliği Sınırlandırma
+
+using System;
+
+class Hesap
+{
+    private decimal _bakiye;
+
+    public decimal Bakiye
+    {
+        get { return _bakiye; }
+        set
+        {
+            if (value >= 0)
+                _bakiye = value;
+            else
+                throw new ArgumentException("Bakiye negatif olamaz.");
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Hesap hesap = new Hesap();
+        hesap.Bakiye = 1000; // Geçerli
+        Console.WriteLine($"Bakiye: {hesap.Bakiye}");
+
+        try
+        {
+            hesap.Bakiye = -500; // Hata
+        }
+        catch (ArgumentException e)
+        {
+            Console.WriteLine($"Hata: {e.Message}");
+        }
+    }
+}
+
+5. Lazy Evaluation (Tembel Değerlendirme)
+
+using System;
+
+class VeriAnaliz
+{
+    private double? _ortalama = null;
+    private readonly int[] _veri;
+
+    public VeriAnaliz(int[] veri)
+    {
+        _veri = veri;
+    }
+
+    public double Ortalama
+    {
+        get
+        {
+            if (_ortalama == null)
+            {
+                Console.WriteLine("Ortalama hesaplanıyor...");
+                _ortalama = (double)Sum(_veri) / _veri.Length;
+            }
+            return _ortalama.Value;
+        }
+    }
+
+    private int Sum(int[] dizi)
+    {
+        int toplam = 0;
+        foreach (var sayi in dizi)
+            toplam += sayi;
+        return toplam;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        var analiz = new VeriAnaliz(new[] { 10, 20, 30 });
+        Console.WriteLine($"Ortalama: {analiz.Ortalama}"); // Hesaplanır
+        Console.WriteLine($"Ortalama: {analiz.Ortalama}"); // Daha önceki değeri kullanır
+    }
+}
+
+6. Bir Özelliği Yeniden Tanımlama
+
+using System;
+
+class Ucret
+{
+    private decimal _saatlikUcret;
+
+    public decimal SaatlikUcret
+    {
+        get { return _saatlikUcret; }
+        set
+        {
+            if (value >= 0)
+                _saatlikUcret = value;
+            else
+                throw new ArgumentException("Saatlik ücret negatif olamaz.");
+        }
+    }
+
+    public decimal AylikUcret
+    {
+        get { return _saatlikUcret * 160; } // Ortalama çalışma saati
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Ucret ucret = new Ucret { SaatlikUcret = 25 };
+        Console.WriteLine($"Aylık Ücret: {ucret.AylikUcret} TL");
+    }
+}
+
+7. Bağımlı Özellikler
+
+using System;
+
+class Dikdortgen
+{
+    public int En { get; set; }
+    public int Boy { get; set; }
+
+    public bool KareMi
+    {
+        get { return En == Boy; } // Diğer özelliklere bağlı
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Dikdortgen dikdortgen = new Dikdortgen { En = 5, Boy = 5 };
+        Console.WriteLine($"Kare mi? {dikdortgen.KareMi}");
+    }
+}
+
