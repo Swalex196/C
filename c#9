@@ -1,0 +1,152 @@
+using System;
+
+// Telefon işlevsellikleri için interface'ler
+public interface ITelefon
+{
+    string Model { get; set; }
+    string Uretici { get; set; }
+    int BataryaKapasitesi { get; set; }
+
+    void OzellikleriGoster();
+    void AramaYap(string numara);
+    void MesajGonder(string numara, string mesaj);
+}
+
+public interface IArama
+{
+    void AramaYap(string numara);
+}
+
+public interface IMesajGonder
+{
+    void MesajGonder(string numara, string mesaj);
+}
+
+// IPhone sınıfı
+public class IPhone : ITelefon, IArama, IMesajGonder
+{
+    public string Model { get; set; }
+    public string Uretici { get; set; }
+    public int BataryaKapasitesi { get; set; }
+    public int KameraMegapiksel { get; set; }
+    public string IsletimSistemi { get; set; } = "iOS";
+
+    public IPhone(string model, int bataryaKapasitesi, int kameraMegapiksel)
+    {
+        Model = model;
+        Uretici = "Apple";
+        BataryaKapasitesi = bataryaKapasitesi;
+        KameraMegapiksel = kameraMegapiksel;
+    }
+
+    public void OzellikleriGoster()
+    {
+        Console.WriteLine($"Model: {Model}");
+        Console.WriteLine($"Üretici: {Uretici}");
+        Console.WriteLine($"Batarya Kapasitesi: {BataryaKapasitesi}mAh");
+        Console.WriteLine($"İşletim Sistemi: {IsletimSistemi}");
+        Console.WriteLine($"Kamera: {KameraMegapiksel} MP");
+    }
+
+    public void AramaYap(string numara)
+    {
+        Console.WriteLine($"{Model} (Apple) numarayı arıyor: {numara}");
+    }
+
+    public void MesajGonder(string numara, string mesaj)
+    {
+        Console.WriteLine($"{Model} (Apple) numaraya mesaj gönderiyor: {numara} - '{mesaj}'");
+    }
+}
+
+// Samsung sınıfı
+public class Samsung : ITelefon, IArama, IMesajGonder
+{
+    public string Model { get; set; }
+    public string Uretici { get; set; }
+    public int BataryaKapasitesi { get; set; }
+    public string SuyaDayaniklilik { get; set; }
+    public string IsletimSistemi { get; set; } = "Android";
+
+    public Samsung(string model, int bataryaKapasitesi, string suyaDayaniklilik)
+    {
+        Model = model;
+        Uretici = "Samsung";
+        BataryaKapasitesi = bataryaKapasitesi;
+        SuyaDayaniklilik = suyaDayaniklilik;
+    }
+
+    public void OzellikleriGoster()
+    {
+        Console.WriteLine($"Model: {Model}");
+        Console.WriteLine($"Üretici: {Uretici}");
+        Console.WriteLine($"Batarya Kapasitesi: {BataryaKapasitesi}mAh");
+        Console.WriteLine($"İşletim Sistemi: {IsletimSistemi}");
+        Console.WriteLine($"Suya Dayanıklılık: {SuyaDayaniklilik}");
+    }
+
+    public void AramaYap(string numara)
+    {
+        Console.WriteLine($"{Model} (Samsung) numarayı arıyor: {numara}");
+    }
+
+    public void MesajGonder(string numara, string mesaj)
+    {
+        Console.WriteLine($"{Model} (Samsung) numaraya mesaj gönderiyor: {numara} - '{mesaj}'");
+    }
+}
+
+// Ana program sınıfı
+class Program
+{
+    static void Main()
+    {
+        ITelefon telefon = TelefonOlustur();
+        telefon.OzellikleriGoster();
+
+        // Arama işlemi
+        string numara = "555-1234";
+        telefon.AramaYap(numara);
+
+        // Mesaj gönderme işlemi
+        string mesajNumara = "555-5678";
+        string mesaj = "Merhaba!";
+        telefon.MesajGonder(mesajNumara, mesaj);
+    }
+
+    // Telefon oluşturma fonksiyonu
+    static ITelefon TelefonOlustur()
+    {
+        while (true)
+        {
+            Console.Write("Telefon üreticisini seçin (Apple veya Samsung): ");
+            string uretici = Console.ReadLine().Trim().ToLower();
+
+            if (uretici == "apple" || uretici == "samsung")
+            {
+                Console.Write("Telefon modelini girin: ");
+                string model = Console.ReadLine();
+
+                Console.Write("Batarya kapasitesini girin (mAh): ");
+                int bataryaKapasitesi = int.Parse(Console.ReadLine());
+
+                if (uretici == "apple")
+                {
+                    Console.Write("Kamera megapiksel değerini girin: ");
+                    int kameraMegapiksel = int.Parse(Console.ReadLine());
+                    return new IPhone(model, bataryaKapasitesi, kameraMegapiksel);
+                }
+                else if (uretici == "samsung")
+                {
+                    Console.Write("Suya dayanıklılık derecesini girin (örneğin, IP68): ");
+                    string suyaDayaniklilik = Console.ReadLine();
+                    return new Samsung(model, bataryaKapasitesi, suyaDayaniklilik);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Geçersiz üretici. Lütfen 'Apple' veya 'Samsung' giriniz.");
+            }
+        }
+    }
+}
