@@ -1,0 +1,149 @@
+Composition (Bileşim)
+
+using System;
+
+class Engine
+{
+    public void Start()
+    {
+        Console.WriteLine("Engine starting...");
+    }
+}
+
+class Car
+{
+    private Engine engine;
+
+    public Car()
+    {
+        engine = new Engine(); // Car, bir Engine'e sahiptir.
+    }
+
+    public void Drive()
+    {
+        engine.Start();
+        Console.WriteLine("Car is moving...");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Car car = new Car();
+        car.Drive();
+    }
+}
+--------------------------------------------------------------------------------------------
+Aggregation (Toplama)
+
+using System;
+
+class Department
+{
+    public string Name { get; set; }
+
+    public Department(string name)
+    {
+        Name = name;
+    }
+}
+
+class Employee
+{
+    public string Name { get; set; }
+    public Department Department { get; set; } // Employee, bir Department'a sahiptir.
+
+    public Employee(string name, Department department)
+    {
+        Name = name;
+        Department = department;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Department department = new Department("IT");
+        Employee employee = new Employee("Alice", department);
+
+        Console.WriteLine(employee.Department.Name); // IT
+    }
+}
+
+--------------------------------------------------------------------------------------------
+
+Association (İlişkilendirme)
+
+using System;
+
+class Teacher
+{
+    public string Name { get; set; }
+
+    public Teacher(string name)
+    {
+        Name = name;
+    }
+}
+
+class Student
+{
+    public string Name { get; set; }
+
+    public Student(string name)
+    {
+        Name = name;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Teacher teacher = new Teacher("Mr. Smith");
+        Student student = new Student("John");
+
+        Console.WriteLine($"{teacher.Name} teaches {student.Name}.");
+    }
+}
+
+--------------------------------------------------------------------------------------------
+Dependency (Bağımlılık)
+
+using System;
+
+class Logger
+{
+    public void Log(string message)
+    {
+        Console.WriteLine($"Log: {message}");
+    }
+}
+
+class Application
+{
+    private Logger logger;
+
+    public Application(Logger logger)
+    {
+        this.logger = logger; // Dependency Injection
+    }
+
+    public void Run()
+    {
+        logger.Log("Application is running...");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Logger logger = new Logger();
+        Application app = new Application(logger);
+
+        app.Run();
+    }
+}
