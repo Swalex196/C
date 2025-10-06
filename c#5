@@ -1,0 +1,117 @@
+using System;
+
+class Character
+{
+    public string Name { get; set; }          // Public
+    protected int Health { get; set; }        // Protected
+    private int Damage { get; set; }          // Private
+
+    public Character(string name, int health, int damage)
+    {
+        Name = name;
+        Health = health;
+        Damage = damage;
+    }
+
+    public void Attack(Character target)
+    {
+        Console.WriteLine($"{Name} attacks {target.Name} for {Damage} damage!");
+        target.TakeDamage(Damage);
+    }
+
+    protected void TakeDamage(int damage)
+    {
+        Health -= damage;
+        if (Health > 0)
+        {
+            Console.WriteLine($"{Name} has {Health} health left.");
+        }
+        else
+        {
+            Console.WriteLine($"{Name} has been defeated!");
+        }
+    }
+
+    public int GetDamage()
+    {
+        return Damage;
+    }
+}
+
+class Player : Character
+{
+    public int Level { get; set; }
+
+    public Player(string name, int health, int damage, int level) 
+        : base(name, health, damage)
+    {
+        Level = level;
+    }
+
+    public void DisplayInfo()
+    {
+        Console.WriteLine($"Player: {Name}, Health: {Health}, Damage: {GetDamage()}, Level: {Level}");
+    }
+}
+
+class Enemy : Character
+{
+    public string EnemyType { get; set; }
+
+    public Enemy(string name, int health, int damage, string enemyType) 
+        : base(name, health, damage)
+    {
+        EnemyType = enemyType;
+    }
+
+    public void DisplayInfo()
+    {
+        Console.WriteLine($"Enemy: {Name}, Type: {EnemyType}, Health: {Health}, Damage: {GetDamage()}");
+    }
+}
+
+class Program
+{
+    static Player CreatePlayer()
+    {
+        Console.Write("Enter player name: ");
+        string name = Console.ReadLine();
+        Console.Write("Enter player health: ");
+        int health = int.Parse(Console.ReadLine());
+        Console.Write("Enter player damage: ");
+        int damage = int.Parse(Console.ReadLine());
+        Console.Write("Enter player level: ");
+        int level = int.Parse(Console.ReadLine());
+
+        return new Player(name, health, damage, level);
+    }
+
+    static Enemy CreateEnemy()
+    {
+        Console.Write("Enter enemy name: ");
+        string name = Console.ReadLine();
+        Console.Write("Enter enemy health: ");
+        int health = int.Parse(Console.ReadLine());
+        Console.Write("Enter enemy damage: ");
+        int damage = int.Parse(Console.ReadLine());
+        Console.Write("Enter enemy type: ");
+        string enemyType = Console.ReadLine();
+
+        return new Enemy(name, health, damage, enemyType);
+    }
+
+    static void Main(string[] args)
+    {
+        // Kullanıcıdan Player ve Enemy bilgilerini al
+        Player player = CreatePlayer();
+        Enemy enemy = CreateEnemy();
+
+        // Bilgileri yazdır
+        player.DisplayInfo();
+        enemy.DisplayInfo();
+
+        // Saldırılar
+        player.Attack(enemy);
+        enemy.Attack(player);
+    }
+}
