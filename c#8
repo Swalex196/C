@@ -1,0 +1,69 @@
+using System;
+
+abstract class Arac
+{
+    public string Marka { get; set; }
+
+    // Soyut metot, alt sınıf implement etmelidir.
+    public abstract void HareketEt();
+
+    // Tam metot, alt sınıflar bu metodu değiştirebilir.
+    public void Calistir()
+    {
+        Console.WriteLine("Araba çalışıyor...");
+    }
+}
+
+class Araba : Arac
+{
+    public override void HareketEt()
+    {
+        Console.WriteLine("Araba hareket ediyor!");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Arac arac = new Arac(); // Hata: Soyut sınıf örneği oluşturulamaz.
+        Araba araba = new Araba();
+        araba.HareketEt();
+        araba.Calistir();
+    }
+}
+---------------------------------------------------------------------------------------------
+using System;
+
+interface IHareketEdilebilir
+{
+    void HareketEt(); // Sadece imza
+}
+
+interface ISesCikartabilir
+{
+    void SesCikar(); // Sadece imza
+}
+
+class Araba : IHareketEdilebilir, ISesCikartabilir
+{
+    public void HareketEt()
+    {
+        Console.WriteLine("Araba hareket ediyor!");
+    }
+
+    public void SesCikar()
+    {
+        Console.WriteLine("Araba ses çıkarıyor!");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Araba araba = new Araba();
+        araba.HareketEt();
+        araba.SesCikar();
+    }
+}
