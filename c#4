@@ -1,0 +1,313 @@
+using System;
+
+class Araba
+{
+    public string Marka { get; set; }
+    public string Model { get; set; }
+    public int MotorHacmi { get; set; }
+
+    public Araba(string marka, string model, int motorHacmi)
+    {
+        Marka = marka;
+        Model = model;
+        MotorHacmi = motorHacmi;
+    }
+
+    public static int VergiHesapla(int motorHacmi)
+    {
+        if (motorHacmi <= 1600)
+            return 1000;
+        else if (motorHacmi <= 2000)
+            return 2000;
+        else
+            return 3000;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        ArabaBilgileriniAl();
+    }
+
+    static void ArabaBilgileriniAl()
+    {
+        Console.Write("Arabanın markasını girin: ");
+        string marka = Console.ReadLine();
+
+        Console.Write("Arabanın modelini girin: ");
+        string model = Console.ReadLine();
+
+        Console.Write("Motor hacmini girin: ");
+        int motorHacmi = int.Parse(Console.ReadLine());
+
+        Araba araba = new Araba(marka, model, motorHacmi);
+
+        int vergi = Araba.VergiHesapla(araba.MotorHacmi);
+
+        Console.WriteLine($"\nMarka: {araba.Marka}");
+        Console.WriteLine($"Model: {araba.Model}");
+        Console.WriteLine($"Motor Hacmi: {araba.MotorHacmi} cc");
+        Console.WriteLine($"Vergi: {vergi} TL");
+    }
+}
+------------------------------------------------------------------------------
+using System;
+
+class Araba
+{
+    public string Marka { get; set; }
+    public string Model { get; set; }
+    public int MotorHacmi { get; set; }
+
+    public Araba(string marka, string model, int motorHacmi)
+    {
+        Marka = marka;
+        Model = model;
+        MotorHacmi = motorHacmi;
+    }
+
+    public static int VergiHesapla(int motorHacmi)
+    {
+        if (motorHacmi <= 1600)
+        {
+            return 1000;
+        }
+        else if (motorHacmi <= 2000)
+        {
+            return 2000;
+        }
+        else
+        {
+            return 3000;
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        ArabaBilgileriniAlVeIslemYap();
+    }
+
+    static void ArabaBilgileriniAlVeIslemYap()
+    {
+        Console.Write("Arabanın markasını girin: ");
+        string marka = Console.ReadLine();
+
+        Console.Write("Arabanın modelini girin: ");
+        string model = Console.ReadLine();
+
+        Console.Write("Motor hacmini girin: ");
+        int motorHacmi;
+        while (!int.TryParse(Console.ReadLine(), out motorHacmi))
+        {
+            Console.WriteLine("Geçersiz motor hacmi, lütfen bir sayı girin.");
+            Console.Write("Motor hacmini girin: ");
+        }
+
+        Araba araba = new Araba(marka, model, motorHacmi);
+
+        int vergi = Araba.VergiHesapla(araba.MotorHacmi);
+
+        if (vergi == 1000)
+        {
+            Console.WriteLine($"{araba.Marka} {araba.Model} arabanız düşük vergi diliminde.");
+        }
+        else if (vergi == 2000)
+        {
+            Console.WriteLine($"{araba.Marka} {araba.Model} arabanız orta vergi diliminde.");
+        }
+        else if (vergi == 3000)
+        {
+            Console.WriteLine($"{araba.Marka} {araba.Model} arabanız yüksek vergi diliminde.");
+        }
+
+        Console.WriteLine($"Ödenecek vergi: {vergi} TL");
+    }
+}
+----------------------------------------------------------------------------------------------
+using System;
+
+class Ogrenci
+{
+    public string Ad { get; set; }
+    public string Ders { get; set; }
+    public int Notu { get; set; }
+
+    public Ogrenci(string ad, string ders, int notu)
+    {
+        Ad = ad;
+        Ders = ders;
+        Notu = notu;
+    }
+
+    public static string NotDurumu(int notu)
+    {
+        if (notu >= 85)
+        {
+            return "Geçti (Pekiyi)";
+        }
+        else if (notu >= 70 && notu < 85)
+        {
+            return "Geçti (İyi)";
+        }
+        else if (notu >= 50 && notu < 70)
+        {
+            return "Şartlı Geçti";
+        }
+        else
+        {
+            return "Kaldı";
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        OgrenciBilgileriniAlVeDurumuGoster();
+    }
+
+    static void OgrenciBilgileriniAlVeDurumuGoster()
+    {
+        Console.Write("Öğrencinin adını girin: ");
+        string ad = Console.ReadLine();
+
+        Console.Write("Dersin adını girin: ");
+        string ders = Console.ReadLine();
+
+        Console.Write($"'{ders}' dersi için öğrencinin notunu girin: ");
+        int notu;
+        while (!int.TryParse(Console.ReadLine(), out notu))
+        {
+            Console.WriteLine("Geçersiz giriş. Lütfen bir sayı girin.");
+            Console.Write($"'{ders}' dersi için öğrencinin notunu girin: ");
+        }
+
+        Ogrenci ogrenci = new Ogrenci(ad, ders, notu);
+        string durum = Ogrenci.NotDurumu(ogrenci.Notu);
+
+        Console.WriteLine($"\nÖğrenci: {ogrenci.Ad}");
+        Console.WriteLine($"Ders: {ogrenci.Ders}");
+        Console.WriteLine($"Not: {ogrenci.Notu}");
+        Console.WriteLine($"Sonuç: {durum}");
+    }
+}
+----------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+
+class Ogrenci
+{
+    public string Ad { get; set; }
+    public string Soyad { get; set; }
+    public List<Ders> Dersler { get; set; }
+
+    public Ogrenci(string ad, string soyad)
+    {
+        Ad = ad;
+        Soyad = soyad;
+        Dersler = new List<Ders>();
+    }
+
+    public void DersEkle(Ders ders)
+    {
+        Dersler.Add(ders);
+    }
+
+    public void DersleriGoster()
+    {
+        Console.WriteLine($"\nÖğrenci: {Ad} {Soyad}");
+        foreach (var ders in Dersler)
+        {
+            ders.DersBilgisi();
+        }
+    }
+}
+
+class Ders
+{
+    public string DersAdi { get; set; }
+    public int Notu { get; set; }
+
+    public Ders(string dersAdi, int notu)
+    {
+        DersAdi = dersAdi;
+        Notu = notu;
+    }
+
+    public string NotDurumu()
+    {
+        if (Notu >= 85)
+        {
+            return "Geçti (Pekiyi)";
+        }
+        else if (Notu >= 70 && Notu < 85)
+        {
+            return "Geçti (İyi)";
+        }
+        else if (Notu >= 50 && Notu < 70)
+        {
+            return "Şartlı Geçti";
+        }
+        else
+        {
+            return "Kaldı";
+        }
+    }
+
+    public void DersBilgisi()
+    {
+        Console.WriteLine($"Ders: {DersAdi} | Not: {Notu} | Durum: {NotDurumu()}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        OgrenciBilgileriniAl();
+    }
+
+    static void OgrenciBilgileriniAl()
+    {
+        Console.Write("Öğrencinin adını girin: ");
+        string ad = Console.ReadLine();
+
+        Console.Write("Öğrencinin soyadını girin: ");
+        string soyad = Console.ReadLine();
+
+        Ogrenci ogrenci = new Ogrenci(ad, soyad);
+
+        Console.Write("Kaç ders eklemek istiyorsunuz?: ");
+        int dersSayisi;
+        while (!int.TryParse(Console.ReadLine(), out dersSayisi) || dersSayisi <= 0)
+        {
+            Console.WriteLine("Geçersiz giriş. Lütfen pozitif bir sayı girin.");
+            Console.Write("Kaç ders eklemek istiyorsunuz?: ");
+        }
+
+        for (int i = 0; i < dersSayisi; i++)
+        {
+            Console.Write("Dersin adını girin: ");
+            string dersAdi = Console.ReadLine();
+
+            Console.Write($"'{dersAdi}' dersi için öğrencinin notunu girin: ");
+            int notu;
+            while (!int.TryParse(Console.ReadLine(), out notu))
+            {
+                Console.WriteLine("Geçersiz giriş. Lütfen bir sayı girin.");
+                Console.Write($"'{dersAdi}' dersi için öğrencinin notunu girin: ");
+            }
+
+            Ders ders = new Ders(dersAdi, notu);
+            ogrenci.DersEkle(ders);
+        }
+
+        ogrenci.DersleriGoster();
+    }
+}
