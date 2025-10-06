@@ -1,0 +1,48 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Merhaba
+        string a = "Merhaba";
+        Console.WriteLine(a);
+        //-----------------
+        Console.WriteLine(14 + 4);
+        //-----------------
+        Console.WriteLine(14 - 4);
+        //-----------------
+        Console.WriteLine(14 * 4);
+        //-----------------
+        Console.WriteLine(14 / 4.0); // 14/4 sonucunun tam sayıya yuvarlanmasını istemiyorsak, float veya double kullanabiliriz
+        //-----------------
+        Console.WriteLine(Math.Pow(5, 3)); // 5**3
+        //-----------------
+        int aVal = 4;
+        int bVal = 3;
+        int c = aVal + 2 * bVal;
+        Console.WriteLine(c);
+        //-----------------
+        double pi = 3.14;
+        int cap = 4;
+        double cevre = pi * cap;
+        Console.WriteLine(cevre);
+        //-----------------
+        int aInt = 7;
+        int bInt = 4;
+        double result = (double)aInt / bInt; // Tip dönüşüm ile doğru sonucu alıyoruz
+        Console.WriteLine(result);
+        Console.WriteLine((int)result);
+        //-----------------
+        string aStr = "324";
+        int bInt2 = int.Parse(aStr); // string'i int'e çeviriyoruz
+        Console.WriteLine(bInt2);
+        Console.WriteLine(bInt2 * 2);
+        //-----------------
+        int aNum = 324;
+        string bStr = aNum.ToString(); // int'i string'e çeviriyoruz
+        Console.WriteLine(bStr);
+        Console.WriteLine(bStr.Length); // string'in uzunluğunu alıyoruz
+        Console.WriteLine(bStr + bStr); // string'i iki kez tekrar ediyoruz
+    }
+}
