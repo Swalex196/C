@@ -1,0 +1,214 @@
+using System;
+
+// Ana sınıf: Animal
+public class Animal
+{
+    protected string name;
+
+    public Animal(string name)
+    {
+        this.name = name;
+    }
+
+    // Animal sınıfında genel bir ses metodu
+    public virtual void MakeSound()
+    {
+        Console.WriteLine("Animal makes a sound.");
+    }
+}
+
+// Dog sınıfı: Animal sınıfından kalıtım alır
+public class Dog : Animal
+{
+    private string breed;
+
+    public Dog(string name, string breed) : base(name)
+    {
+        this.breed = breed;
+    }
+
+    // Dog sınıfında MakeSound() metodunu özelleştiriyoruz
+    public override void MakeSound()
+    {
+        Console.WriteLine("Dog barks: Woof Woof!");
+    }
+}
+
+// Cat sınıfı: Animal sınıfından kalıtım alır
+public class Cat : Animal
+{
+    private string color;
+
+    public Cat(string name, string color) : base(name)
+    {
+        this.color = color;
+    }
+
+    // Cat sınıfında MakeSound() metodunu özelleştiriyoruz
+    public override void MakeSound()
+    {
+        Console.WriteLine("Cat meows: Meow Meow!");
+    }
+}
+
+// Ana program
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Nesneler oluştur
+        Animal animal = new Animal("Generic Animal");
+        Dog dog = new Dog("Buddy", "Golden Retriever");
+        Cat cat = new Cat("Whiskers", "Gray");
+
+        // Polymorphism: Aynı metot farklı biçimlerde çalışır
+        animal.MakeSound();  // Animal makes a sound.
+        dog.MakeSound();     // Dog barks: Woof Woof!
+        cat.MakeSound();     // Cat meows: Meow Meow!
+    }
+}
+
+
+
+----------------------------------------------------------------------------------------------------
+using System;
+
+namespace RelationshipExample
+{
+    // Ana sınıf: Relationship
+    public abstract class Relationship
+    {
+        protected string person1;
+        protected string person2;
+
+        public Relationship(string person1, string person2)
+        {
+            this.person1 = person1;
+            this.person2 = person2;
+        }
+
+        // Duyguları ifade etme metodu
+        public virtual void ExpressFeelings()
+        {
+            Console.WriteLine($"{person1} ve {person2} bir ilişki içindeler.");
+        }
+
+        // Karşılıklı destek verme metodu
+        public virtual void Support()
+        {
+            Console.WriteLine($"{person1} ve {person2} birbirlerine destek oluyor.");
+        }
+
+        // Birlikte vakit geçirme metodu
+        public virtual void SpendTime()
+        {
+            Console.WriteLine($"{person1} ve {person2} birlikte vakit geçiriyor.");
+        }
+
+        // İlişki durumu kontrol metodu
+        public abstract void CheckStatus();
+    }
+
+    // RomanticRelationship sınıfı: Relationship sınıfından kalıtım alır
+    public class RomanticRelationship : Relationship
+    {
+        private int duration; // ilişki süresi (yıl)
+
+        public RomanticRelationship(string person1, string person2, int duration)
+            : base(person1, person2)
+        {
+            this.duration = duration;
+        }
+
+        public override void ExpressFeelings()
+        {
+            Console.WriteLine($"{person1} ve {person2}, birbirine derin bir aşkla bağlı.");
+        }
+
+        public override void Support()
+        {
+            Console.WriteLine($"{person1} ve {person2}, her durumda birbirini destekleyen bir çift.");
+        }
+
+        public override void SpendTime()
+        {
+            Console.WriteLine($"{person1} ve {person2}, romantik bir akşam yemeğinde buluşuyor.");
+        }
+
+        // Koşullara göre ilişki evliliğe veya ayrılığa gider
+        public override void CheckStatus()
+        {
+            if (duration > 5)
+            {
+                Console.WriteLine($"{person1} ve {person2} evlenmeye karar verdi!");
+            }
+            else
+            {
+                Console.WriteLine($"{person1} ve {person2} ilişkiyi bitirme kararı aldı.");
+            }
+        }
+    }
+
+    // Friendship sınıfı: Relationship sınıfından kalıtım alır
+    public class Friendship : Relationship
+    {
+        private int trustLevel; // güven seviyesi
+
+        public Friendship(string person1, string person2, int trustLevel)
+            : base(person1, person2)
+        {
+            this.trustLevel = trustLevel;
+        }
+
+        public override void ExpressFeelings()
+        {
+            Console.WriteLine($"{person1} ve {person2}, güçlü bir dostluk bağına sahip.");
+        }
+
+        public override void Support()
+        {
+            Console.WriteLine($"{person1} ve {person2}, zor zamanlarda birbirinin yanında olan gerçek dostlar.");
+        }
+
+        public override void SpendTime()
+        {
+            Console.WriteLine($"{person1} ve {person2}, doğada yürüyüş yaparak birlikte vakit geçiriyor.");
+        }
+
+        // Koşullara göre dostluk devam eder veya sona erer
+        public override void CheckStatus()
+        {
+            if (trustLevel > 7)
+            {
+                Console.WriteLine($"{person1} ve {person2}, güçlü bir dostluk olarak devam ediyor.");
+            }
+            else
+            {
+                Console.WriteLine($"{person1} ve {person2}, dostluklarını sonlandırma kararı aldı.");
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Farklı ilişki türlerinde nesneler oluşturuluyor
+            RomanticRelationship romantic = new RomanticRelationship("Ayşe", "Ali", 6);
+            Friendship friendship = new Friendship("Elif", "Merve", 5);
+
+            // İlişki durumları ve duygular kontrol ediliyor
+            Console.WriteLine("--- Romantic Relationship ---");
+            romantic.ExpressFeelings();
+            romantic.Support();
+            romantic.SpendTime();
+            romantic.CheckStatus(); // Ayşe ve Ali evlenmeye karar verdi!
+
+            Console.WriteLine("\n--- Friendship ---");
+            friendship.ExpressFeelings();
+            friendship.Support();
+            friendship.SpendTime();
+            friendship.CheckStatus(); // Elif ve Merve dostluklarını sonlandırma kararı aldı.
+        }
+    }
+}
