@@ -1,0 +1,103 @@
+using System;
+
+class Bilgisayar
+{
+    // Özellikler (Attributes)
+    public string Marka { get; set; }
+    public string Model { get; set; }
+    public int Ram { get; set; }
+    public int Depolama { get; set; }
+
+    // Yapıcı metot (Constructor)
+    public Bilgisayar(string marka, string model, int ram, int depolama)
+    {
+        Marka = marka;
+        Model = model;
+        Ram = ram;
+        Depolama = depolama;
+    }
+
+    // Davranış (Metot): Bilgisayarı başlatmak
+    public void Baslat()
+    {
+        Console.WriteLine($"{Marka} {Model} bilgisayarı başlatılıyor...");
+    }
+
+    // Davranış (Metot): Bilgisayarı kapatmak
+    public void Kapat()
+    {
+        Console.WriteLine($"{Marka} {Model} bilgisayarı kapatılıyor.");
+    }
+
+    // Davranış (Metot): Bilgisayar özelliklerini görüntülemek
+    public void Ozellikler()
+    {
+        Console.WriteLine($"Marka: {Marka}, Model: {Model}, RAM: {Ram}GB, Depolama: {Depolama}GB");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Nesne oluşturma (Bir bilgisayar nesnesi)
+        Bilgisayar bilgisayar1 = new Bilgisayar("Dell", "XPS 15", 16, 512);
+
+        // Nesnenin davranışlarını kullanma
+        bilgisayar1.Baslat();       // Dell XPS 15 bilgisayarı başlatılıyor...
+        bilgisayar1.Ozellikler();   // Marka: Dell, Model: XPS 15, RAM: 16GB, Depolama: 512GB
+        bilgisayar1.Kapat();        // Dell XPS 15 bilgisayarı kapatılıyor.
+    }
+}
+
+-------------------------------------------------------------------------------------------------
+
+using System;
+
+class Telefon
+{
+    // Özellikler (Attributes)
+    public string Marka { get; set; }
+    public string Model { get; set; }
+    public int BataryaYuzdesi { get; set; }
+
+    // Yapıcı metot (Constructor)
+    public Telefon(string marka, string model, int bataryaYuzdesi)
+    {
+        Marka = marka;
+        Model = model;
+        BataryaYuzdesi = bataryaYuzdesi;
+    }
+
+    // Davranış (Metot): Arama yapma
+    public void AramaYap(string numara)
+    {
+        Console.WriteLine($"{Marka} {Model} ile {numara} numarası aranıyor.");
+    }
+
+    // Davranış (Metot): Şarj etme
+    public void SarjEt(int miktar)
+    {
+        BataryaYuzdesi += miktar;
+        if (BataryaYuzdesi > 100)
+        {
+            BataryaYuzdesi = 100;
+        }
+        Console.WriteLine($"{Marka} {Model} şarj edildi. Batarya % {BataryaYuzdesi}.");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Nesne oluşturma (Bir iPhone telefonu)
+        Telefon telefon1 = new Telefon("iPhone", "13 Pro", 50);
+
+        // Nesnenin davranışlarını kullanma
+        telefon1.AramaYap("555-1234");  // iPhone 13 Pro ile 555-1234 numarası aranıyor.
+        telefon1.SarjEt(30);             // iPhone 13 Pro şarj edildi. Batarya % 80.
+    }
+}
+
+
