@@ -1,0 +1,99 @@
+using System;
+
+// Alt sistem sınıfları
+class Light
+{
+    public void TurnOn()
+    {
+        Console.WriteLine("Işıklar açıldı.");
+    }
+
+    public void TurnOff()
+    {
+        Console.WriteLine("Işıklar kapatıldı.");
+    }
+}
+
+class AirConditioner
+{
+    public void TurnOn()
+    {
+        Console.WriteLine("Klima açıldı.");
+    }
+
+    public void TurnOff()
+    {
+        Console.WriteLine("Klima kapatıldı.");
+    }
+
+    public void SetTemperature(int temperature)
+    {
+        Console.WriteLine($"Klima sıcaklığı {temperature} dereceye ayarlandı.");
+    }
+}
+
+class Television
+{
+    public void TurnOn()
+    {
+        Console.WriteLine("Televizyon açıldı.");
+    }
+
+    public void TurnOff()
+    {
+        Console.WriteLine("Televizyon kapatıldı.");
+    }
+
+    public void SetChannel(string channel)
+    {
+        Console.WriteLine($"Televizyon {channel} kanalına ayarlandı.");
+    }
+}
+
+// Facade sınıfı
+class SmartHomeFacade
+{
+    private Light _light;
+    private AirConditioner _airConditioner;
+    private Television _television;
+
+    public SmartHomeFacade()
+    {
+        _light = new Light();
+        _airConditioner = new AirConditioner();
+        _television = new Television();
+    }
+
+    public void StartEveningMode()
+    {
+        Console.WriteLine("\nAkşam modu başlatılıyor...");
+        _light.TurnOn();
+        _airConditioner.TurnOn();
+        _airConditioner.SetTemperature(22);
+        _television.TurnOn();
+        _television.SetChannel("National Geographic");
+    }
+
+    public void Shutdown()
+    {
+        Console.WriteLine("\nEvi kapatma işlemi başlatılıyor...");
+        _television.TurnOff();
+        _airConditioner.TurnOff();
+        _light.TurnOff();
+    }
+}
+
+// İstemci kodu
+class Program
+{
+    static void Main(string[] args)
+    {
+        SmartHomeFacade smartHome = new SmartHomeFacade();
+
+        // Akşam modunu başlat
+        smartHome.StartEveningMode();
+
+        // Evi kapat
+        smartHome.Shutdown();
+    }
+}
