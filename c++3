@@ -1,0 +1,46 @@
+#include <stdio.h>
+main()
+{
+    int sayi1,sayi2,islem ;
+printf("Lutfen birinci sayi giriniz") ;
+scanf("%d", &sayi1);
+printf("Lutfen ikinci sayiyi giriniz") ;
+scanf("%d", &sayi2) ;
+
+printf("1.Toplama \n");
+printf("2.Cikarma \n");
+printf("3.Bolme \n");
+printf("4.Carpma \n");
+
+printf("Lutfen yapilacak matematik islemini seciniz") ;
+scanf("%d", &islem);
+
+switch(islem) {
+
+case 1:
+printf("Toplama sonucunuz: %d", sayi1 + sayi2);
+break;
+
+case 2 : 
+printf("Cikarma sonucunuz: %d", sayi1 - sayi2);
+break;
+
+
+case 3 :
+printf("Bolme sonucuzu: %f",(float) sayi1 / (float) sayi2);
+break;
+
+
+case 4 :
+printf("Carpma sonucunuz: %d", sayi1 * sayi2);
+break;
+
+
+  default:
+  printf("Hatali tuslama yaptiniz");
+    break;
+
+
+    }
+
+    }
