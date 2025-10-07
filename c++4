@@ -1,0 +1,176 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+using namespace std;
+
+// Banka Hesabı
+
+class BankaHesabi
+{
+    private:
+        string hesapNumarasi;
+        double bakiye;
+        string sahipAdi;
+        
+    public: // Kurucu - Constructor Fonk.
+        BankaHesabi(string sahip, string hesapNum, double ilkBakiye)
+        {
+            hesapNumarasi = hesapNum;
+            bakiye = ilkBakiye;
+            sahipAdi = sahip;
+        };
+        
+        // Para Yatırma Fonk.
+        void ParaYatir(double miktar)
+        {
+            bakiye += miktar;
+            cout << "Yatırılan miktar: " << miktar << "TL." << endl;
+            cout << "Yeni bakiye: " << bakiye << "TL." << endl;
+        }
+        
+        // Para Çekme Fonk.
+        bool ParaCek(double miktar)
+        {
+            if (bakiye >= miktar)
+            {
+                bakiye -= miktar;
+                cout << "Çekilen miktar: " << miktar << "TL." << endl;
+                cout << "Yeni bakiye: " << bakiye << "TL." << endl;
+                return true;
+            }
+            
+            else
+            {
+                cout << "Yetersiz bakiye. Para çekilemedi." << endl;
+                return false;
+            }
+        }
+        
+        // Hesap Bilgilerini Gösterme Fonk.
+        void HesapBilgileriniGoster() const
+        {
+            cout << "Hesap sahibi: " << sahipAdi << endl;
+            cout << "Hesap numarası: " << hesapNumarasi << endl;
+            cout << "Bakiye: " << bakiye << "TL" << endl;
+        }
+        
+        // Sahibinin getter fonk.
+        string getSahipAdi() const
+        {
+            return sahipAdi;
+        }
+        
+        // Hesap numarası getter fonk.
+        string getHesapNumarasi() const
+        {
+            return hesapNumarasi;
+        }
+};
+
+class BankaGorevlisi
+{
+    public: 
+    
+    // İşlem yapma fonk.
+    void islemYap(BankaHesabi&hesap, char islemTuru, double miktar)
+    {
+        if (islemTuru == 'y')
+        {
+            hesap.ParaYatir(miktar);
+        }
+        else if (islemTuru == 'c')
+        {
+            hesap.ParaCek(miktar);
+        }
+        else
+        {
+            cout << "Geçersiz işlem." << endl;
+        }
+    }
+};
+
+int main()
+{
+    vector <BankaHesabi> hesaplar;
+    BankaGorevlisi gorevli;
+    char secim;
+    
+    do
+    {
+        cout << "Yeni hesap eklemek istiyor musunuz? (E/H) ";
+        cin >> secim;
+        
+        if (secim == 'E' || secim == 'e')
+        {
+            string ad, soyad;
+            cout << "Adınızı giriniz: ";
+            cin >> ad;
+            cout << "Soyadınızı giriniz: ";
+            cin >> soyad;
+            
+            string tamAd = ad + " " + soyad;
+            string hesapNumarasi = "HSP001";
+            
+            // Yeni Hesap Oluşturma
+            
+            BankaHesabi yeniHesap(tamAd, hesapNumarasi, 0.0);
+            hesaplar.push_back(yeniHesap);
+            cout << "Hesap başarıyla oluşturuldu." << endl;
+            continue;
+        }
+    
+    
+            do
+        {
+            cout << "İşlem yapmak için hesap seçiniz: ";
+            for (int i = 0; i < hesaplar.size(); ++i)
+            {
+                cout << i << ".";
+                hesaplar[i].HesapBilgileriniGoster();
+            }
+            cout << "İşlem yapmak istediğiniz hesabın endeksini giriniz: ";
+            string girilenEndeks;
+            cin >> girilenEndeks;
+            
+            int endeks;
+            stringstream(girilenEndeks) >> endeks;
+            
+            if (endeks < 0  || endeks >= hesaplar.size())
+            {
+                cout << "Geçersiz endeks. Lütfen geçerli bir endeks giriniz." << endl;
+                continue;
+            }
+            
+            BankaHesabi&hesap = hesaplar[endeks];
+            cout << "işlem türünü giriniz: (Para yatırma: y / Para Çekme: c) ";
+            char islemTuru;
+            cin >> islemTuru;
+            islemTuru = tolower(islemTuru);
+            
+            if (islemTuru != 'y' && islemTuru != 'c')
+            {
+                cout << "Geçersiz işlem." << endl;
+                continue;
+            }
+            
+            double miktar;
+            cout << "Miktarı giriniz: ";
+            cin >> miktar;
+            
+            // İşlem Yapma
+            
+            gorevli.islemYap(hesap, islemTuru, miktar);
+            hesap.HesapBilgileriniGoster();
+            cout << "Başka bir işlem yapmak istiyor musunuz: (e/h) "; 
+            cin >> secim;
+            secim = tolower(secim);
+        }
+        while (secim == 'e' || secim == 'E');
+        cout << "Yeni bir hesap eklemek istiyor musunuz: (e/h) ";
+        cin >> secim;
+    }
+    while (secim == 'e' || secim == 'E');
+
+    return 0;
+}
