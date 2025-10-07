@@ -1,0 +1,46 @@
+#include <stdio.h> 
+int main()
+{
+  int ürüncesidi,adet;
+  float birimfiyat,toplamtutar=0.00;
+  char cevap;
+  
+  do
+  {    
+  printf("Masa:1  Sandalye:2  Koltuk:3 \n");
+  printf("Lutfen secmek istediginiz urunu secin:");
+  scanf("%d",&ürüncesidi);
+
+    switch(ürüncesidi){
+      case 1 :
+      birimfiyat=20.75;
+        printf("Masa ucreti:%.2f TL\n",birimfiyat);
+      break;
+
+      case 2 :
+      birimfiyat=10.50;
+        printf("Sandalye ücreti:%.2f TL \n",birimfiyat);
+      break;
+
+      case 3 :
+      birimfiyat=12.40;
+        printf("Koltuk ücreti:%.2f TL\n",birimfiyat);
+      break;
+
+      default:
+      printf("Lutfen gecerli bir urun giriniz \n");
+      continue;
+      }
+    printf("Adet giriniz:");
+    scanf("%d",&adet);
+    toplamtutar+=birimfiyat*adet;
+    printf("Baska urun satin aldiniz mi? evet:e/E  Hayır:h/H \n");
+  
+    printf("\n");
+    }while(cevap=='e'||cevap=='E');
+  
+    printf("Toplam Tutar:%.2f TL",toplamtutar);
+  
+  return 0;
+}
+  
