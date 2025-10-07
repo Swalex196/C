@@ -1,0 +1,71 @@
+#include <iostream>
+
+int main()
+{
+  using namespace std;
+  char çıkış;
+  int para,ekmek=3,yumurta=60,sut=15,ürün,adet;
+  cout<<"Toplamda ne kadar paraniz var? \n";
+  cin>>para;
+  do
+  { 
+  cout<<"Lütfen almak istediğiniz ürününün kodunu seçiniz:\n";
+
+  cout<<"Ekmek için (1) Süt için (2) Yumurta için (3) Çıkış için(4)\n";
+cin>>ürün;
+
+  switch(ürün){
+    case 1:
+    cout<<"Kaç adet ekmek almak istiyorsunuz? \n:";
+    cin>>adet;
+     if(para<ekmek*adet){
+
+        cout<<"Paraniz yetersizdir lütfen bidaha deneyiniz \n";
+        break;
+        }
+        else {
+            para = para - (ekmek*adet);
+            cout<<"Kalan paraniz: "<<para<<"\n";
+            break;
+        }
+        case 2:
+    cout<<"Kaç adet süt almak istiyorsunuz? \n:";
+    cin>>adet;
+     if(para<sut*adet){
+
+        cout<<"Paraniz yetersizdir lütfen bidaha deneyiniz \n";
+        break;
+        }
+        else {
+            para = para - (sut*adet);
+            cout<<"Kalan paraniz: "<<para<<"\n";
+            break;
+        }
+        case 3:
+        cout<<"Kaç adet yumurta almak istiyorsunuz? \n:";
+    cin>>adet;
+     if(para<yumurta*adet){
+
+        cout<<"Paraniz yetersizdir lütfen bidaha deneyiniz\n";
+        break;
+        }
+        else {
+            para = para - (yumurta*adet);
+            cout<<"Kalan paraniz: "<<para<<"\n";
+            break;
+            }
+            case 4:
+            cout<<"Çıkmak istediğinize eminmisiniz?: Evet e/E Hayır h/H \n";
+            cin>>çıkış;
+            cout<<"Kalan bakiyeniz: "<<para<<"\n";
+            break;
+            
+            default:
+            cout<<"Hatali tuşlama yaptiniz lütfen tekrar deneyiniz \n";
+            break;
+            }
+            
+  }while (çıkış!='e'&& çıkış!='E');
+  cout<<"Çikiş yaptiniz iyi günler";
+  return 0;
+            }
